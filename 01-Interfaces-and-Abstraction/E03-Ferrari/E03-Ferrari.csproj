@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Ferrari.cs" />
-    <Compile Include="Models\ICar.cs" />
+    <Compile Include="Interfaces\ICar.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

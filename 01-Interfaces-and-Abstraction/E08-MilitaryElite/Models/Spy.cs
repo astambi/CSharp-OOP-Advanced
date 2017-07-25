@@ -10,14 +10,10 @@ namespace E08_MilitaryElite.Models
         public Spy(string id, string firstName, string lastName, int codeNumber)
             : base(id, firstName, lastName)
         {
-            this.CodeNumber = codeNumber;
+            this.codeNumber = codeNumber;
         }
 
-        public int CodeNumber
-        {
-            get { return this.codeNumber; }
-            private set { this.codeNumber = value; }
-        }
+        public int CodeNumber => this.codeNumber;
 
         public override string ToString()
         {

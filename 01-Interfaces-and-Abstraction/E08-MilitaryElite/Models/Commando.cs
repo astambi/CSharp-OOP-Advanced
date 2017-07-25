@@ -11,14 +11,10 @@ namespace E08_MilitaryElite.Models
         public Commando(string id, string firstName, string lastName, double salary, string corps)
             : base(id, firstName, lastName, salary, corps)
         {
-            this.Missions = new List<IMission>();
+            this.missions = new List<IMission>();
         }
 
-        public IList<IMission> Missions
-        {
-            get { return this.missions; }
-            private set { this.missions = value; }
-        }
+        public IList<IMission> Missions => this.missions;
 
         public override string ToString()
         {

@@ -43,9 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Citizen.cs" />
-    <Compile Include="Models\IBirthable.cs" />
-    <Compile Include="Models\IIdentifiable.cs" />
-    <Compile Include="Models\IPerson.cs" />
+    <Compile Include="Interfaces\IBirthable.cs" />
+    <Compile Include="Interfaces\IIdentifiable.cs" />
+    <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0603301A-DD8C-4F9D-B03E-4C36BAC91F3E}</ProjectGuid>
+    <ProjectGuid>{9C88AC1C-EF53-4942-92E7-8B5F17482326}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>E07_FoodShortage</RootNamespace>
-    <AssemblyName>E07-FoodShortage</AssemblyName>
+    <RootNamespace>E10_ExplicitInterfaces</RootNamespace>
+    <AssemblyName>E10-ExplicitInterfaces</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,19 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IPerson.cs" />
+    <Compile Include="Interfaces\IResident.cs" />
     <Compile Include="Models\Citizen.cs" />
-    <Compile Include="Interfaces\IBirthdate.cs" />
-    <Compile Include="Interfaces\IBuyer.cs" />
-    <Compile Include="Interfaces\IIdentifiable.cs" />
-    <Compile Include="Models\Pet.cs" />
-    <Compile Include="Models\Rebel.cs" />
-    <Compile Include="Models\Robot.cs" />
-    <Compile Include="Models\SocietyMember.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

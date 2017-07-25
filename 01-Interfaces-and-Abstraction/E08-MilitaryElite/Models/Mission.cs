@@ -10,15 +10,11 @@ namespace E08_MilitaryElite.Models
 
         public Mission(string codeName, string state)
         {
-            this.CodeName = codeName;
+            this.codeName = codeName;
             this.State = state;
         }
 
-        public string CodeName
-        {
-            get { return this.codeName; }
-            private set { this.codeName = value; }
-        }
+        public string CodeName => this.codeName;
 
         public string State
         {

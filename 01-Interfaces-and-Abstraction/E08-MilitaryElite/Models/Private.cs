@@ -10,14 +10,10 @@ namespace E08_MilitaryElite.Models
         public Private(string id, string firstName, string lastName, double salary)
             : base(id, firstName, lastName)
         {
-            this.Salary = salary;
+            this.salary = salary;
         }
 
-        public double Salary
-        {
-            get { return this.salary; }
-            private set { this.salary = value; }
-        }
+        public double Salary => this.salary;
 
         public override string ToString()
         {
@@ -26,7 +22,7 @@ namespace E08_MilitaryElite.Models
                 .Append(base.ToString())
                 .Append($" Salary: {this.Salary:f2}");
 
-            return builder.ToString().Trim(); 
+            return builder.ToString().Trim();
         }
     }
 }

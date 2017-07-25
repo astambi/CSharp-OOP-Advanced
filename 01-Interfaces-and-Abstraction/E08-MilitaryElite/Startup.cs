@@ -24,7 +24,6 @@ namespace E08_MilitaryElite
                 if (input == "End") break;
 
                 var soldierTokens = ParseInput(input);
-
                 var type = soldierTokens[0];
                 var id = soldierTokens[1];
                 var firstName = soldierTokens[2];

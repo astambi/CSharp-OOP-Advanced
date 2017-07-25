@@ -16,23 +16,11 @@ namespace E08_MilitaryElite.Models
             this.lastName = lastName;
         }
 
-        public string Id
-        {
-            get { return this.id; }
-            private set { this.id = value; }
-        }
+        public string Id => this.id;
 
-        public string FirstName
-        {
-            get { return this.firstName; }
-            private set { this.firstName = value; }
-        }
+        public string FirstName => this.firstName;
 
-        public string LastName
-        {
-            get { return this.lastName; }
-            private set { this.lastName = value; }
-        }
+        public string LastName => this.lastName;
 
         public override string ToString()
         {

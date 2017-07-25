@@ -66,8 +66,7 @@ namespace E07_FoodShortage
 
         private static string[] ParseInput(string input)
         {
-            return input
-                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            return input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Citizen.cs" />
-    <Compile Include="Models\IPerson.cs" />
+    <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

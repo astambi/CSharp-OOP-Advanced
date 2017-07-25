@@ -43,8 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Citizen.cs" />
-    <Compile Include="Models\IBirthdate.cs" />
-    <Compile Include="Models\IIdentifiable.cs" />
+    <Compile Include="Interfaces\IBirthdate.cs" />
+    <Compile Include="Interfaces\IIdentifiable.cs" />
     <Compile Include="Models\Pet.cs" />
     <Compile Include="Models\Robot.cs" />
     <Compile Include="Models\SocietyMember.cs" />

@@ -11,14 +11,10 @@ namespace E08_MilitaryElite.Models
         public Engineer(string id, string firstName, string lastName, double salary, string corps)
             : base(id, firstName, lastName, salary, corps)
         {
-            this.Repairs = new List<IRepair>();
+            this.repairs = new List<IRepair>();
         }
 
-        public IList<IRepair> Repairs
-        {
-            get { return this.repairs; }
-            private set { this.repairs = value; }
-        }
+        public IList<IRepair> Repairs => this.repairs;
 
         public override string ToString()
         {
@@ -26,7 +22,7 @@ namespace E08_MilitaryElite.Models
             builder
                 .AppendLine(base.ToString())
                 .AppendLine("Repairs:");
-
+            
             foreach (var repair in this.repairs)
             {
                 builder.AppendLine($"  {repair}");

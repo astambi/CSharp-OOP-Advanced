@@ -10,10 +10,10 @@ namespace E06_BirthdayCelebrations
         public static void Main()
         {
             List<IBirthdate> societyMembersWithBirthdates = GetSocietyMembers();
-            GetMembersWithInvalidIds(societyMembersWithBirthdates);
+            GetMembersByBirthdate(societyMembersWithBirthdates);
         }
 
-        private static void GetMembersWithInvalidIds(List<IBirthdate> societyMembers)
+        private static void GetMembersByBirthdate(List<IBirthdate> societyMembers)
         {
             var year = Console.ReadLine();
 

@@ -11,15 +11,11 @@ namespace E08_MilitaryElite.Models
         public LeutenantGeneral(string id, string firstName, string lastName, double salary)
             : base(id, firstName, lastName, salary)
         {
-            this.Privates = new List<IPrivate>();
+            this.privates = new List<IPrivate>();
         }
 
-        public IList<IPrivate> Privates
-        {
-            get { return this.privates; }
-            private set { this.privates = value; }
-        }
-        
+        public IList<IPrivate> Privates => this.privates;
+
         public override string ToString()
         {
             var builder = new StringBuilder();
@@ -31,7 +27,7 @@ namespace E08_MilitaryElite.Models
             {
                 builder.AppendLine($"  {priv}");
             }
-            
+
             return builder.ToString().Trim();
         }
     }

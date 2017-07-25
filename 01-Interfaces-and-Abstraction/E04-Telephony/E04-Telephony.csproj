@@ -42,8 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\IBrowsable.cs" />
-    <Compile Include="Models\ICallable.cs" />
+    <Compile Include="Interfaces\IBrowsable.cs" />
+    <Compile Include="Interfaces\ICallable.cs" />
     <Compile Include="Models\Smartphone.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
