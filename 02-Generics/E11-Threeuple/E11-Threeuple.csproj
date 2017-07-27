@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{77A74E55-ABD7-4288-B72D-73E28E2A750A}</ProjectGuid>
+    <ProjectGuid>{07CD4F61-266F-46EC-8550-01D12D1839AA}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>E05_GenericCountMethodString</RootNamespace>
-    <AssemblyName>E05-GenericCountMethodString</AssemblyName>
+    <RootNamespace>E11_Threeuple</RootNamespace>
+    <AssemblyName>E11-Threeuple</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Threeuple.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

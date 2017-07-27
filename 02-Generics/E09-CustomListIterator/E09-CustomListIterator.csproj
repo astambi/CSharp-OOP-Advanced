@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{77A74E55-ABD7-4288-B72D-73E28E2A750A}</ProjectGuid>
+    <ProjectGuid>{07EC96C8-D509-4585-94FD-2DABAD2269A5}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>E05_GenericCountMethodString</RootNamespace>
-    <AssemblyName>E05-GenericCountMethodString</AssemblyName>
+    <RootNamespace>E09_CustomListIterator</RootNamespace>
+    <AssemblyName>E09-CustomListIterator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ICustomList.cs" />
+    <Compile Include="Models\CustomList.cs" />
+    <Compile Include="Models\Sorter.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

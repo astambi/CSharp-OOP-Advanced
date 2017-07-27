@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace E03_GenericSwapMethodString
@@ -12,13 +13,18 @@ namespace E03_GenericSwapMethodString
             collection.Print();
         }
 
-        private static void SwapElements(GenericCollection<string> collection)
+        private static void SwapElements<T>(GenericCollection<T> collection)
         {
-            var indicesToSwap = Console.ReadLine()
-                               .Split()
-                               .Select(int.Parse)
-                               .ToList();
+            var indicesToSwap = ReadIndicesToSwap();
             collection.SwapElements(indicesToSwap[0], indicesToSwap[1]);
+        }
+
+        private static List<int> ReadIndicesToSwap()
+        {
+            return Console.ReadLine()
+                   .Split()
+                   .Select(int.Parse)
+                   .ToList();
         }
 
         private static GenericCollection<string> GetCollection()
