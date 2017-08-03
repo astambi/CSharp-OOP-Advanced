@@ -1,4 +1,4 @@
-﻿namespace E06_CustomEnumAttribute
+﻿namespace E08_CardGame
 {
     [Type("Enumeration", "Rank", "Provides rank constants for a Card class.")]
     public enum CardRank

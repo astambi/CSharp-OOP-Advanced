@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{703CF9D4-A98F-41AD-B785-77AE91DFCEBE}</ProjectGuid>
+    <ProjectGuid>{968AB560-42DD-4553-98B1-97BBF1D492A0}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>E06_CustomEnumAttribute</RootNamespace>
-    <AssemblyName>E06-CustomEnumAttribute</AssemblyName>
+    <RootNamespace>E07_DeckOfCards</RootNamespace>
+    <AssemblyName>E07-DeckOfCards</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

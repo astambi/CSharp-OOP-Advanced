@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{703CF9D4-A98F-41AD-B785-77AE91DFCEBE}</ProjectGuid>
+    <ProjectGuid>{EE990E3F-EA32-46DF-A2AE-26AD689BBBCC}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>E06_CustomEnumAttribute</RootNamespace>
-    <AssemblyName>E06-CustomEnumAttribute</AssemblyName>
+    <RootNamespace>E09_TrafficLights</RootNamespace>
+    <AssemblyName>E09-TrafficLights</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,12 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Card.cs" />
-    <Compile Include="Models\CardRank.cs" />
-    <Compile Include="Models\CardSuit.cs" />
+    <Compile Include="Models\LightColor.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Attributes\TypeAttribute.cs" />
+    <Compile Include="Models\TrafficLight.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

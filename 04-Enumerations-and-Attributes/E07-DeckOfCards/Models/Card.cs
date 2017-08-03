@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace E06_CustomEnumAttribute
+namespace E07_DeckOfCards
 {
     public class Card : IComparable<Card>
     {
@@ -26,7 +26,9 @@ namespace E06_CustomEnumAttribute
 
         public override string ToString()
         {
-            return $"Card name: {this.CardRank} of {this.CardSuit}; Card power: {this.CardPower()}";
+            //return $"Card name: {this.CardRank} of {this.CardSuit}; Card power: {this.CardPower()}";
+
+            return $"{this.CardRank} of {this.CardSuit}";
         }
     }
 }
