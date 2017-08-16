@@ -42,6 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Employees\Employee.cs" />
+    <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\JobEventArgs.cs" />
+    <Compile Include="Models\JobsList.cs" />
+    <Compile Include="Models\Employees\PartTimeEmployee.cs" />
+    <Compile Include="Models\Employees\StandartEmployee.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

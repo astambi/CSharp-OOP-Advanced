@@ -19,10 +19,12 @@
 
         public void OnNameChange(NameChangeEventArgs args)
         {
-            if (NameChange != null)
-            {
-                NameChange(this, args);
-            }
+            NameChange?.Invoke(this, args);
+
+            //if (NameChange != null)
+            //{
+            //    NameChange(this, args);
+            //}
         }
     }
 }

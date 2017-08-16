@@ -4,17 +4,11 @@ namespace E01_EventImplementation.Models
 {
     public class NameChangeEventArgs : EventArgs
     {
-        private string name;
-
         public NameChangeEventArgs(string name)
         {
-            this.name = name;
+            this.Name = name;
         }
 
-        public string Name
-        {
-            get => this.name;
-            private set => this.name = value;
-        }
+        public string Name { get; private set; }
     }
 }
