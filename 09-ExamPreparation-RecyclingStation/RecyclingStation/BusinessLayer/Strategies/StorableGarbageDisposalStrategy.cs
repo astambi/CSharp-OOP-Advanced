@@ -2,7 +2,7 @@
 
 namespace RecyclingStation.BusinessLayer.Strategies
 {
-    class StorableGarbageDisposalStrategy : GarbageDisposalStrategy
+    public class StorableGarbageDisposalStrategy : GarbageDisposalStrategy
     {
         protected override double CalculateCapitalBalance(IWaste garbage)
         {

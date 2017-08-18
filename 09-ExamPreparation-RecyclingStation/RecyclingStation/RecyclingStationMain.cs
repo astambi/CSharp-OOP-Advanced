@@ -19,14 +19,11 @@ namespace RecyclingStation
             IWriter writer = new ConsoleWriter();
 
             IStrategyHolder strategyHolder = new StrategyHolder(new Dictionary<Type, IGarbageDisposalStrategy>());
-
             IGarbageProcessor garbageProcessor = new GarbageProcessor(strategyHolder);
             IWasteFactory wasteFactory = new WasteFactory();
-
             IRecyclingStation recyclingStation = new RecyclingManager(garbageProcessor, wasteFactory);
 
             IEngine engine = new Engine(reader, writer, recyclingStation);
-
             engine.Run();
         }
     }

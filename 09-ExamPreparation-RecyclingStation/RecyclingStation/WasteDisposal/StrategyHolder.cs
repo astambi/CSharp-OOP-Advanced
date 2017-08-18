@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using RecyclingStation.WasteDisposal.Interfaces;
+    using RecyclingStation.WasteDisposal.Attributes;
 
     // make class public (instead of internal) for Unit testing withought Mocking
     public class StrategyHolder : IStrategyHolder
@@ -35,6 +36,13 @@
             //return true;
 
             // Refactored
+            // Validate Attribute Type
+            if (!disposableAttribute.IsSubclassOf(typeof(DisposableAttribute)) ||
+                disposableAttribute.IsAbstract)
+            {
+                return false;
+            }
+            // Add to collection
             if (!this.strategies.ContainsKey(disposableAttribute))
             {
                 this.strategies.Add(disposableAttribute, strategy);
