@@ -64,7 +64,7 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
     //refactored
     public long SecondaryStats
     {
-        get { return this.Strength + this.HitPoints + this.Damage; }
+        get { return this.HitPoints + this.Damage; }
     }
 
     //REFLECTION
@@ -163,12 +163,12 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
             .AppendLine($"###Strength: {this.Strength}")
             .AppendLine($"###Agility: {this.Agility}")
             .AppendLine($"###Intelligence: {this.Intelligence}");
-        
+
         // Item names
         if (this.Items.Any())
         {
-            builder
-                .AppendLine("###Items: " + string.Join(", ", this.Items.Select(i => i.Name)));
+            var itemNames = this.Items.Select(i => i.Name);
+            builder.AppendLine("###Items: " + string.Join(", ", itemNames));
         }
         else
         {

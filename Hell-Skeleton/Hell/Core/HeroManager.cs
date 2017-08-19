@@ -114,6 +114,7 @@ public class HeroManager : IManager
                                .OrderByDescending(h => h.PrimaryStats)
                                .ThenByDescending(h => h.SecondaryStats)
                                .ToList();
+
         var builder = new StringBuilder();
 
         for (int i = 0; i < orderedHeros.Count; i++)

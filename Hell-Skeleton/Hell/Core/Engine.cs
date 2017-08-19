@@ -32,7 +32,10 @@ public class Engine : IEngine
 
     private IList<string> ParseInput(string input)
     {
-        return input.Split(' ').ToList();
+        return input
+            //.Split(' ')
+            .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .ToList();
     }
 
     private string ProcessInput(IList<string> arguments)
