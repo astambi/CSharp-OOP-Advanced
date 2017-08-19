@@ -7,6 +7,11 @@ using System.Reflection;
 [TestFixture]
 public class HeroInventoryTests
 {
+    //private const int value1 = 0;
+    //private const int value2 = 100;
+    private const int value1 = int.MaxValue;
+    private const int value2 = int.MaxValue;
+
     private HeroInventory heroInventory;
 
     [SetUp]
@@ -242,9 +247,7 @@ public class HeroInventoryTests
 
     // Total Bonuses
     [Test]
-    [TestCase(0, 100)]
-    [TestCase(int.MaxValue, int.MaxValue)]
-    public void TotalStrengthBonusShouldReturnCorrectBonusSum(int value1, int value2)
+    public void TotalStrengthBonusShouldReturnCorrectBonusSum()
     {
         // Arrange
         var item1 = new CommonItem("Common Item 1", value1, 0, 0, 0, 0);
@@ -262,9 +265,7 @@ public class HeroInventoryTests
     }
 
     [Test]
-    [TestCase(0, 100)]
-    [TestCase(int.MaxValue, int.MaxValue)]
-    public void TotalAgilityBonusShouldReturnCorrectBonusSum(int value1, int value2)
+    public void TotalAgilityBonusShouldReturnCorrectBonusSum()
     {
         // Arrange
         var item1 = new CommonItem("Common Item 1", 0, value1, 0, 0, 0);
@@ -282,9 +283,7 @@ public class HeroInventoryTests
     }
 
     [Test]
-    [TestCase(0, 100)]
-    [TestCase(int.MaxValue, int.MaxValue)]
-    public void TotalIntelligenceBonusShouldReturnCorrectBonusSum(int value1, int value2)
+    public void TotalIntelligenceBonusShouldReturnCorrectBonusSum()
     {
         // Arrange
         var item1 = new CommonItem("Common Item 1", 0, 0, value1, 0, 0);
@@ -302,9 +301,7 @@ public class HeroInventoryTests
     }
 
     [Test]
-    [TestCase(0, 100)]
-    [TestCase(int.MaxValue, int.MaxValue)]
-    public void TotalHitPointsBonusShouldReturnCorrectBonusSum(int value1, int value2)
+    public void TotalHitPointsBonusShouldReturnCorrectBonusSum()
     {
         // Arrange
         var item1 = new CommonItem("Common Item 1", 0, 0, 0, value1, 0);
@@ -322,9 +319,7 @@ public class HeroInventoryTests
     }
 
     [Test]
-    [TestCase(0, 100)]
-    [TestCase(int.MaxValue, int.MaxValue)]
-    public void TotalDamageBonusShouldReturnCorrectBonusSum(int value1, int value2)
+    public void TotalDamageBonusShouldReturnCorrectBonusSum()
     {
         // Arrange
         var item1 = new CommonItem("Common Item 1", 0, 0, 0, 0, value1);
@@ -450,7 +445,10 @@ public class HeroInventoryTests
                         "Incorrect Bonus value!");
     }
 
-    // TODO CheckRecipes
+    public void CheckRecipes()
+    {
+        // TODO CheckRecipes
+    }
 
     // Helper methods for getting the CommonItems, RecipeItems & Methods from HeroInventory
     private IDictionary<string, IItem> GetCommonItems()
