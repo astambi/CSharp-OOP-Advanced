@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class InspectCommand : AbstractCommand
 {
@@ -10,7 +9,6 @@ public class InspectCommand : AbstractCommand
 
     public override string Execute()
     {
-        return this.Manager.Inspect(this.ArgsList);
+        return this.Manager.Inspect(this.Arguments);
     }
-
 }

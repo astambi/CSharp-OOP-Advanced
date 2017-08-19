@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class RecipeCommand : AbstractCommand
 {
@@ -10,7 +9,6 @@ public class RecipeCommand : AbstractCommand
 
     public override string Execute()
     {
-        return this.Manager.AddRecipe(this.ArgsList);
+        return this.Manager.AddRecipe(this.Arguments);
     }
-
 }

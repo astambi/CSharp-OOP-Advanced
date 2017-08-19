@@ -2,6 +2,7 @@
 
 public class QuitCommand : AbstractCommand
 {
+    // Refactored
     //protected QuitCommand()
     //{
     //}
@@ -11,8 +12,9 @@ public class QuitCommand : AbstractCommand
     {
     }
 
+    // Refactored
     public /*virtual*/ override string Execute()
     {
-        return this.Manager.Quit(this.ArgsList);
+        return this.Manager.Quit(this.Arguments);
     }
 }

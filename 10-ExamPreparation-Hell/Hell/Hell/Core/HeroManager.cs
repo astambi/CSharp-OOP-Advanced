@@ -22,14 +22,17 @@ public class HeroManager : IManager
 
         try
         {
-            Type clazz = Type.GetType(heroType);
-            var constructors = clazz.GetConstructors();
-            IHero hero = (IHero)constructors[0].Invoke(new object[] { heroName });
+            Type typeOfHero = Type.GetType(heroType);
+            var constructors = typeOfHero.GetConstructors();
+
+            IHero hero = (IHero)constructors[0]
+                                .Invoke(new object[] { heroName });
 
             // Refactored
             this.heroes.Add(heroName, hero);
 
             //result = string.Format($"Created {heroType} - {hero.GetType().Name}");
+
             result = string.Format(Constants.HeroCreateMessage, heroType, heroName);
         }
         catch (Exception e)
@@ -40,6 +43,7 @@ public class HeroManager : IManager
         return result;
     }
 
+    // Refactored
     public string AddItem(IList<string> arguments/*, IHero hero*/)
     {
         string result = null;
@@ -52,14 +56,14 @@ public class HeroManager : IManager
         int hitPointsBonus = int.Parse(arguments[5]);
         int damageBonus = int.Parse(arguments[6]);
 
-        CommonItem newItem = new CommonItem(itemName, strengthBonus, agilityBonus, intelligenceBonus, hitPointsBonus, damageBonus);
+        CommonItem newItem = new CommonItem(
+            itemName, strengthBonus, agilityBonus, intelligenceBonus, hitPointsBonus, damageBonus);
 
         // Refactored
-        var hero = this.heroes[heroName];
-        hero.AddItem(newItem);
-        this.heroes[heroName] = hero;
+        this.heroes[heroName].AddItem(newItem);
 
         result = string.Format(Constants.ItemCreateMessage, newItem.Name, heroName);
+
         return result;
     }
 
@@ -75,29 +79,17 @@ public class HeroManager : IManager
         int hitPointsBonus = int.Parse(arguments[5]);
         int damageBonus = int.Parse(arguments[6]);
 
-        IList<string> requiredItems = arguments.Skip(7).ToList();
+        List<string> requiredItems = arguments.Skip(7).ToList();
 
-        IRecipe newRecipe = new RecipeItem(itemName, strengthBonus, agilityBonus, intelligenceBonus, hitPointsBonus, damageBonus, requiredItems);
+        IRecipe newRecipe = new RecipeItem(
+            itemName, strengthBonus, agilityBonus, intelligenceBonus, hitPointsBonus, damageBonus,
+            requiredItems);
 
-        var hero = this.heroes[heroName];
-        hero.AddRecipe(newRecipe);
-        this.heroes[heroName] = hero;
+        this.heroes[heroName].AddRecipe(newRecipe);
 
         result = string.Format(Constants.RecipeCreatedMessage, newRecipe.Name, heroName);
+
         return result;
-
-    }
-
-    public string CreateGame()
-    {
-        StringBuilder result = new StringBuilder();
-
-        foreach (var hero in this.heroes)
-        {
-            result.AppendLine(hero.Key);
-        }
-
-        return result.ToString();
     }
 
     public string Inspect(IList<string> arguments)
@@ -107,7 +99,7 @@ public class HeroManager : IManager
         return this.heroes[heroName].ToString();
     }
 
-    public string Quit(IList<string> argsList)
+    public string Quit(IList<string> arguments)
     {
         var orderedHeros = this.heroes
                                .Values
@@ -119,14 +111,27 @@ public class HeroManager : IManager
 
         for (int i = 0; i < orderedHeros.Count; i++)
         {
-            builder.Append($"{i + 1}. ")
-                   .AppendLine(orderedHeros[i].QuitToString());
+            builder
+                .Append($"{i + 1}. ")
+                .AppendLine(orderedHeros[i].PrintQuitStats());
         }
 
         return builder.ToString().Trim();
     }
 
-    //Само Батман знае как работи това
+    // Refactored
+    //public string CreateGame()
+    //{
+    //    StringBuilder result = new StringBuilder();
+
+    //    foreach (var hero in this.heroes)
+    //    {
+    //        result.AppendLine(hero.Key);
+    //    }
+
+    //    return result.ToString();
+    //}
+    
     //public static void GenerateResult()
     //{
     //    const string PropName = "_connectionString";

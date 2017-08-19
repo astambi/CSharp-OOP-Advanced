@@ -9,5 +9,4 @@ public class RecipeItem : AbstractItem, IRecipe
     }
 
     public IList<string> RequiredItems { get; }
-
 }

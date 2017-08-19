@@ -21,7 +21,7 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
         this.intelligence = intelligence;
         this.hitPoints = hitPoints;
         this.damage = damage;
-        this.inventory = new HeroInventory();
+        this.inventory = new HeroInventory(); // TODO Refactor dependency
     }
 
     public string Name { get; private set; }
@@ -61,7 +61,7 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
         get { return this.Strength + this.Agility + this.Intelligence; }
     }
 
-    //refactored
+    // Refactored
     public long SecondaryStats
     {
         get { return this.HitPoints + this.Damage; }
@@ -74,13 +74,13 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
         {
             Type inventoryType = typeof(HeroInventory);
 
-            var inventoryFields =
-                inventoryType
-                    .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-                    .FirstOrDefault(f => f.GetCustomAttributes(typeof(ItemAttribute)) != null);
+            var inventoryFields = inventoryType
+                                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+                                .FirstOrDefault(f =>
+                                    f.GetCustomAttributes(typeof(ItemAttribute)) != null);
 
             var items = (Dictionary<string, IItem>)inventoryFields
-                        .GetValue(this.inventory);
+                                                   .GetValue(this.inventory);
 
             return items.Values.ToList(); // Dict to List
         }
@@ -97,6 +97,7 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
         this.inventory.AddRecipeItem(recipe);
     }
 
+    // Not used
     public int CompareTo(AbstractHero other)
     {
         if (ReferenceEquals(this, other))
@@ -115,47 +116,11 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
         return this.SecondaryStats.CompareTo(other.SecondaryStats);
     }
 
-    public override string ToString()
+    public string PrintQuitStats()
     {
         var builder = new StringBuilder();
 
-        // Hero info
-        builder
-            .AppendLine($"Hero: {this.Name}, Class: {this.GetType().Name}")
-            .AppendLine($"HitPoints: {this.HitPoints}, Damage: {this.Damage}")
-            .AppendLine($"Strength: {this.Strength}")
-            .AppendLine($"Agility: {this.Agility}")
-            .AppendLine($"Intelligence: {this.Intelligence}");
-
-        // Items info
-        var items = this.Items;
-        if (!items.Any())
-        {
-            builder.AppendLine($"Items: None");
-        }
-        else
-        {
-            foreach (var item in items)
-            {
-                builder
-                    .AppendLine("Items:")
-                    .AppendLine($"###Item: {item.Name}")
-                    .AppendLine($"###+{item.StrengthBonus} Strength")
-                    .AppendLine($"###+{item.AgilityBonus} Agility")
-                    .AppendLine($"###+{item.IntelligenceBonus} Intelligence")
-                    .AppendLine($"###+{item.HitPointsBonus} HitPoints")
-                    .AppendLine($"###+{item.DamageBonus} Damage");
-            }
-        }
-
-        return builder.ToString().Trim();
-    }
-
-    public string QuitToString()
-    {
-        var builder = new StringBuilder();
-
-        // Hero info
+        // Hero stats
         builder
             .AppendLine($"{this.GetType().Name}: {this.Name}")
             .AppendLine($"###HitPoints: {this.HitPoints}")
@@ -164,18 +129,55 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
             .AppendLine($"###Agility: {this.Agility}")
             .AppendLine($"###Intelligence: {this.Intelligence}");
 
-        // Item names
+        // Item names 
         if (this.Items.Any())
         {
             var itemNames = this.Items.Select(i => i.Name);
-            builder.AppendLine("###Items: " + string.Join(", ", itemNames));
+            builder
+                .Append("###Items: ")
+                .AppendLine(string.Join(", ", itemNames));
         }
         else
         {
             builder.AppendLine("###Items: None");
         }
 
-        return builder.ToString().Trim(); // TODO
+        return builder.ToString().Trim();
     }
 
+    public override string ToString()
+    {
+        var builder = new StringBuilder();
+
+        // Hero stats
+        builder
+            .AppendLine($"Hero: {this.Name}, Class: {this.GetType().Name}")
+            .AppendLine($"HitPoints: {this.HitPoints}, Damage: {this.Damage}")
+            .AppendLine($"Strength: {this.Strength}")
+            .AppendLine($"Agility: {this.Agility}")
+            .AppendLine($"Intelligence: {this.Intelligence}");
+
+        // Items stats
+        if (this.Items.Any())
+        {
+            builder.AppendLine("Items:"); // NB!
+
+            foreach (var item in this.Items)
+            {
+                builder
+                    .AppendLine($"###Item: {item.Name}")
+                    .AppendLine($"###+{item.StrengthBonus} Strength")
+                    .AppendLine($"###+{item.AgilityBonus} Agility")
+                    .AppendLine($"###+{item.IntelligenceBonus} Intelligence")
+                    .AppendLine($"###+{item.HitPointsBonus} HitPoints")
+                    .AppendLine($"###+{item.DamageBonus} Damage");
+            }
+        }
+        else
+        {
+            builder.AppendLine($"Items: None");
+        }
+
+        return builder.ToString().Trim();
+    }
 }

@@ -4,13 +4,13 @@ public abstract class AbstractCommand : ICommand
 {
     public AbstractCommand(IList<string> arguments, IManager manager)
     {
-        this.ArgsList = arguments;
+        this.Arguments = arguments;
         this.Manager = manager;
     }
 
-    public IList<string> ArgsList { get; private set; }
+    protected IList<string> Arguments { get; private set; }
 
-    public IManager Manager { get; private set; }
+    protected IManager Manager { get; private set; }
 
     public abstract string Execute();
 }

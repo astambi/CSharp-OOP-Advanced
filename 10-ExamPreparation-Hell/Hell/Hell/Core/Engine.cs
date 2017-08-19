@@ -30,6 +30,7 @@ public class Engine : IEngine
         }
     }
 
+    // Refactored
     private IList<string> ParseInput(string input)
     {
         return input
@@ -45,11 +46,11 @@ public class Engine : IEngine
 
         Type commandType = Type.GetType(command + "Command");
 
-        var constructor = commandType.GetConstructor(
-                          new Type[] { typeof(IList<string>), typeof(IManager) });
+        var constructor = commandType
+                         .GetConstructor(new Type[] { typeof(IList<string>), typeof(IManager) });
 
-        ICommand cmd = (ICommand)constructor.Invoke(
-                        new object[] { arguments, this.heroManager });
+        ICommand cmd = (ICommand)constructor
+                                .Invoke(new object[] { arguments, this.heroManager });
 
         return cmd.Execute();
     }

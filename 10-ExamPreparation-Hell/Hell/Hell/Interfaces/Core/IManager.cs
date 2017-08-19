@@ -8,11 +8,7 @@ public interface IManager
 
     string AddRecipe(IList<string> arguments);
 
-    string CreateGame();
-
     string Inspect(IList<string> arguments);
 
-    string Quit(IList<string> argsList);
+    string Quit(IList<string> arguments);
 }
-
-// todo

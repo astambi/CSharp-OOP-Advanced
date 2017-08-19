@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class HeroCommand : AbstractCommand
 {
@@ -10,6 +9,6 @@ public class HeroCommand : AbstractCommand
 
     public override string Execute()
     {
-        return this.Manager.AddHero(this.ArgsList);
+        return this.Manager.AddHero(this.Arguments);
     }
 }

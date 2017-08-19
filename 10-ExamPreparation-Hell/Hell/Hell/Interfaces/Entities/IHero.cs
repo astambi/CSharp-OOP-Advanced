@@ -29,5 +29,5 @@ public interface IHero
     // from AbstractHero
     void AddRecipe(IRecipe recipe);
 
-    string QuitToString();
+    string PrintQuitStats();
 }
