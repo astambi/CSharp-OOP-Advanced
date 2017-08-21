@@ -1,9 +1,9 @@
-﻿using BashSoft.Contracts;
-using BashSoft.Exceptions;
-using System.Diagnostics;
-
-namespace BashSoft.IO.Commands
+﻿namespace BashSoft.IO.Commands
 {
+    using System.Diagnostics;
+    using BashSoft.Contracts;
+    using BashSoft.Exceptions;
+
     public class OpenFileCommand : Command
     {
         public OpenFileCommand(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager)
@@ -17,8 +17,9 @@ namespace BashSoft.IO.Commands
             {
                 throw new InvalidCommandException(this.Input);
             }
+
             string fileName = this.Data[1];
-            Process.Start(SessionData.currentPath + "\\" + fileName);
+            Process.Start(SessionData.CurrentPath + "\\" + fileName);
         }
     }
 }

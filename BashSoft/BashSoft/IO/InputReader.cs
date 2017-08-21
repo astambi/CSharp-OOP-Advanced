@@ -1,8 +1,8 @@
-﻿using BashSoft.Contracts;
-using System;
-
-namespace BashSoft
+﻿namespace BashSoft
 {
+    using System;
+    using BashSoft.Contracts;
+
     public class InputReader : IReader
     {
         private const string EndCommand = "quit";
@@ -18,9 +18,12 @@ namespace BashSoft
         {
             while (true)
             {
-                OutputWriter.WriteMessage($"{SessionData.currentPath}> ");
+                OutputWriter.WriteMessage($"{SessionData.CurrentPath}> ");
                 string input = Console.ReadLine().Trim();
-                if (input == EndCommand) break;
+                if (input == EndCommand)
+                {
+                    break;
+                }
 
                 this.interpreter.InterpretCommand(input);
             }

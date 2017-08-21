@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace BashSoft.Exceptions
+﻿namespace BashSoft.Exceptions
 {
+    using System;
+
     public class InvalidStringException : Exception
     {
         private const string NullOrEmptyValue = "The value of the variable CANNOT be null or empty!";

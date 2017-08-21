@@ -1,9 +1,9 @@
-﻿using BashSoft.Contracts;
-using BashSoft.Exceptions;
-using System.Collections.Generic;
-
-namespace BashSoft.Models
+﻿namespace BashSoft.Models
 {
+    using System.Collections.Generic;
+    using BashSoft.Contracts;
+    using BashSoft.Exceptions;
+
     public class SoftUniCourse : ICourse
     {
         public const int NumberOfTasksOnExam = 5;
@@ -20,13 +20,18 @@ namespace BashSoft.Models
 
         public string Name
         {
-            get { return this.name; }
+            get
+            {
+                return this.name;
+            }
+
             private set
             {
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new InvalidStringException();
                 }
+
                 this.name = value;
             }
         }
@@ -44,6 +49,7 @@ namespace BashSoft.Models
             {
                 throw new DuplicateEntryInStructureException(student.UserName, this.Name);
             }
+
             this.studentsByName.Add(student.UserName, student);
         }
 

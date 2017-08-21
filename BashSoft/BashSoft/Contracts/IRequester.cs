@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace BashSoft.Contracts
+﻿namespace BashSoft.Contracts
 {
+    using System.Collections.Generic;
+
     public interface IRequester
     {
         void GetStudentScoresFromCourse(string courseName, string username);

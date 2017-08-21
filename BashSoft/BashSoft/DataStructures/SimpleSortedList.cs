@@ -1,11 +1,11 @@
-﻿using BashSoft.Contracts;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BashSoft.DataStructures
+﻿namespace BashSoft.DataStructures
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Text;
+    using BashSoft.Contracts;
+
     public class SimpleSortedList<T> : ISimpleOrderedBag<T>
         where T : IComparable<T>
     {
@@ -18,7 +18,7 @@ namespace BashSoft.DataStructures
         public SimpleSortedList(IComparer<T> comparer, int capacity)
         {
             this.comparison = comparer;
-            InitializeInnerCollection(capacity);
+            this.InitializeInnerCollection(capacity);
         }
 
         public SimpleSortedList(int capacity)
@@ -42,8 +42,9 @@ namespace BashSoft.DataStructures
         {
             if (this.innerCollection.Length == this.size)
             {
-                Resize();
+                this.Resize();
             }
+
             this.innerCollection[this.size++] = element;
 
             Array.Sort(this.innerCollection, 0, this.size, this.comparison);
@@ -55,6 +56,7 @@ namespace BashSoft.DataStructures
             {
                 this.MultiResize(collection);
             }
+
             foreach (var element in collection)
             {
                 this.innerCollection[this.size++] = element;
@@ -72,9 +74,23 @@ namespace BashSoft.DataStructures
                     .Append(element)
                     .Append(joiner);
             }
+
             builder.Remove(builder.Length - 1, 1);
 
             return builder.ToString();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < this.size; i++)
+            {
+                yield return this.innerCollection[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
 
         private void InitializeInnerCollection(int capacity)
@@ -83,6 +99,7 @@ namespace BashSoft.DataStructures
             {
                 throw new ArgumentException("Capacity cannot be negative!");
             }
+
             this.innerCollection = new T[capacity];
         }
 
@@ -104,19 +121,6 @@ namespace BashSoft.DataStructures
             T[] newCollection = new T[newSize];
             Array.Copy(this.innerCollection, newCollection, this.size);
             this.innerCollection = newCollection;
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            for (int i = 0; i < this.size; i++)
-            {
-                yield return this.innerCollection[i];
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
         }
     }
 }

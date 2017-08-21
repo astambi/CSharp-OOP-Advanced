@@ -1,9 +1,9 @@
-﻿using BashSoft.Repository;
-using System;
-using System.Collections.Generic;
-
-namespace BashSoft
+﻿namespace BashSoft
 {
+    using System;
+    using System.Collections.Generic;
+    using BashSoft.Repository;
+
     public class RepositoryFilter : IDataFilter
     {
         public void FilterAndTake(Dictionary<string, double> studentsWithMarks, string wantedFilter, int studentsToTake)
@@ -26,8 +26,7 @@ namespace BashSoft
             }
         }
 
-        private void FilterAndTake(Dictionary<string, double> studentsWithMarks, Predicate<double> givenFilter,
-        int studentsToTake)
+        private void FilterAndTake(Dictionary<string, double> studentsWithMarks, Predicate<double> givenFilter, int studentsToTake)
         {
             int counterForPrinted = 0;
             foreach (var studentMark in studentsWithMarks)
@@ -36,6 +35,7 @@ namespace BashSoft
                 {
                     break;
                 }
+
                 if (givenFilter(studentMark.Value))
                 {
                     OutputWriter.PrintStudent(new KeyValuePair<string, double>(studentMark.Key, studentMark.Value));

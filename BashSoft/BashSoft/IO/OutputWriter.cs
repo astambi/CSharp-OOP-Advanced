@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BashSoft
+﻿namespace BashSoft
 {
+    using System;
+    using System.Collections.Generic;
+
     public static class OutputWriter
     {
         public static void WriteMessage(string message)

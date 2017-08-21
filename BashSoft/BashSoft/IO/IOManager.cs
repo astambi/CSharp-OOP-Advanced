@@ -1,19 +1,19 @@
-﻿using BashSoft.Contracts;
-using BashSoft.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace BashSoft
+﻿namespace BashSoft
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using BashSoft.Contracts;
+    using BashSoft.Exceptions;
+
     public class IOManager : IDirectoryManager
     {
         public void TraverseDirectory(int depth)
         {
             OutputWriter.WriteEmptyLine();
-            var initialIndentation = SessionData.currentPath.Split('\\').Length;
+            var initialIndentation = SessionData.CurrentPath.Split('\\').Length;
             var subFolders = new Queue<string>();
-            subFolders.Enqueue(SessionData.currentPath);
+            subFolders.Enqueue(SessionData.CurrentPath);
 
             while (subFolders.Count != 0)
             {
@@ -34,6 +34,7 @@ namespace BashSoft
                         string fileName = file.Substring(indexOfLastSlash);
                         OutputWriter.WriteMessageOnNewLine(new string('-', indexOfLastSlash) + fileName);
                     }
+
                     foreach (var directoryPath in Directory.GetDirectories(currentPath))
                     {
                         subFolders.Enqueue(directoryPath);
@@ -48,7 +49,7 @@ namespace BashSoft
 
         public void CreateDirectoryInCurrentFolder(string name)
         {
-            string path = SessionData.currentPath + "\\" + name;
+            string path = SessionData.CurrentPath + "\\" + name;
             try
             {
                 Directory.CreateDirectory(name);
@@ -65,10 +66,10 @@ namespace BashSoft
             {
                 try
                 {
-                    string currentPath = SessionData.currentPath;
+                    string currentPath = SessionData.CurrentPath;
                     int indexOfLastSlash = currentPath.LastIndexOf('\\');
                     string newPath = currentPath.Substring(0, indexOfLastSlash);
-                    SessionData.currentPath = newPath;
+                    SessionData.CurrentPath = newPath;
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -77,9 +78,9 @@ namespace BashSoft
             }
             else
             {
-                string currentPath = SessionData.currentPath;
+                string currentPath = SessionData.CurrentPath;
                 currentPath += "\\" + relativePath;
-                ChangeCurrentDirectoryAbsolute(currentPath);
+                this.ChangeCurrentDirectoryAbsolute(currentPath);
             }
         }
 
@@ -89,7 +90,8 @@ namespace BashSoft
             {
                 throw new InvalidPathException();
             }
-            SessionData.currentPath = absolutePath;
+
+            SessionData.CurrentPath = absolutePath;
         }
     }
 }

@@ -1,11 +1,10 @@
-﻿using BashSoft.Contracts;
-using BashSoft.Exceptions;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace BashSoft.IO.Commands
+﻿namespace BashSoft.IO.Commands
 {
+    using System;
+    using System.Collections.Generic;
+    using BashSoft.Contracts;
+    using BashSoft.Exceptions;
+
     public class DisplayCommand : Command
     {
         public DisplayCommand(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager)
@@ -45,10 +44,12 @@ namespace BashSoft.IO.Commands
             {
                 return Comparer<IStudent>.Create((studentOne, studentTwo) => studentOne.CompareTo(studentTwo));
             }
+
             if (sortType.Equals("descending", StringComparison.OrdinalIgnoreCase))
             {
                 return Comparer<IStudent>.Create((studentOne, studentTwo) => studentTwo.CompareTo(studentOne));
             }
+
             throw new InvalidCommandException(this.Input);
         }
 
@@ -58,12 +59,13 @@ namespace BashSoft.IO.Commands
             {
                 return Comparer<ICourse>.Create((courseOne, courseTwo) => courseOne.CompareTo(courseTwo));
             }
+
             if (sortType.Equals("descending", StringComparison.OrdinalIgnoreCase))
             {
                 return Comparer<ICourse>.Create((courseOne, courseTwo) => courseTwo.CompareTo(courseOne));
             }
+
             throw new InvalidCommandException(this.Input);
         }
-
     }
 }

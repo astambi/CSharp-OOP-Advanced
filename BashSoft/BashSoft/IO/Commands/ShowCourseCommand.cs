@@ -1,11 +1,11 @@
-﻿using BashSoft.Contracts;
-using BashSoft.Exceptions;
-
-namespace BashSoft.IO.Commands
+﻿namespace BashSoft.IO.Commands
 {
+    using BashSoft.Contracts;
+    using BashSoft.Exceptions;
+
     public class ShowCourseCommand : Command
     {
-        public ShowCourseCommand(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager) 
+        public ShowCourseCommand(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager)
             : base(input, data, judge, repository, inputOutputManager)
         {
         }

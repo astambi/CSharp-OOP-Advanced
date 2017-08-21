@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace BashSoft.Exceptions
+﻿namespace BashSoft.Exceptions
 {
+    using System;
+
     public class DuplicateEntryInStructureException : Exception
     {
         private const string DuplicateEntry = "The {0} already exists in {1}.";

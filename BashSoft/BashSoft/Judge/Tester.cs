@@ -1,10 +1,10 @@
-﻿using BashSoft.Contracts;
-using BashSoft.Exceptions;
-using System;
-using System.IO;
-
-namespace BashSoft
+﻿namespace BashSoft
 {
+    using System;
+    using System.IO;
+    using BashSoft.Contracts;
+    using BashSoft.Exceptions;
+
     public class Tester : IContentComparer
     {
         public void CompareContent(string userOutputPath, string expectedOutputPath)
@@ -13,12 +13,12 @@ namespace BashSoft
             {
                 OutputWriter.WriteMessageOnNewLine("Reading files...");
 
-                string mismatchPath = GetMismatchPath(expectedOutputPath);
+                string mismatchPath = this.GetMismatchPath(expectedOutputPath);
                 string[] actualOutputLines = File.ReadAllLines(userOutputPath);
                 string[] expectedOutputLines = File.ReadAllLines(expectedOutputPath);
 
                 bool hasMismatch;
-                string[] mismatches = GetLinesWithPossibleMismatches(actualOutputLines, expectedOutputLines, out hasMismatch);
+                string[] mismatches = this.GetLinesWithPossibleMismatches(actualOutputLines, expectedOutputLines, out hasMismatch);
 
                 this.PrintOutput(mismatches, hasMismatch, mismatchPath);
                 OutputWriter.WriteMessageOnNewLine("Files Read!");
@@ -37,6 +37,7 @@ namespace BashSoft
                 {
                     OutputWriter.WriteMessageOnNewLine(line);
                 }
+
                 try
                 {
                     File.WriteAllLines(mismatchesPath, mismatches);
@@ -45,6 +46,7 @@ namespace BashSoft
                 {
                     OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
                 }
+
                 return;
             }
 
@@ -84,8 +86,10 @@ namespace BashSoft
                     output = actualLine;
                     output += Environment.NewLine;
                 }
+
                 mismatches[index] = output;
             }
+
             return mismatches;
         }
 

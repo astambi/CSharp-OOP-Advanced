@@ -1,8 +1,8 @@
-﻿using BashSoft.Contracts;
-using BashSoft.Exceptions;
-
-namespace BashSoft.IO.Commands
+﻿namespace BashSoft.IO.Commands
 {
+    using BashSoft.Contracts;
+    using BashSoft.Exceptions;
+
     public class MakeDirectoryCommand : Command
     {
         public MakeDirectoryCommand(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager)

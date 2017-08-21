@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace BashSoft.Exceptions
+﻿namespace BashSoft.Exceptions
 {
+    using System;
+
     public class InvalidPathException : Exception
     {
         private const string InvalidPath = "The source does not exist.";

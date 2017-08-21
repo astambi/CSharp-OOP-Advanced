@@ -1,10 +1,10 @@
-﻿using BashSoft.Contracts;
-using BashSoft.Exceptions;
-using BashSoft.IO.Commands;
-using System;
-
-namespace BashSoft
+﻿namespace BashSoft
 {
+    using System;
+    using BashSoft.Contracts;
+    using BashSoft.Exceptions;
+    using BashSoft.IO.Commands;
+
     public class CommandInterpreter : IInterpreter
     {
         private IContentComparer judge;

@@ -1,8 +1,8 @@
-﻿using BashSoft.Contracts;
-using BashSoft.Exceptions;
-
-namespace BashSoft.IO.Commands
+﻿namespace BashSoft.IO.Commands
 {
+    using BashSoft.Contracts;
+    using BashSoft.Exceptions;
+
     public class PrintOrderedStudentsCommand : Command
     {
         public PrintOrderedStudentsCommand(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager)
@@ -19,7 +19,7 @@ namespace BashSoft.IO.Commands
                 string takeCommand = this.Data[3].ToLower();
                 string takeQuantity = this.Data[4].ToLower();
 
-                TryParseParametersForOrderAndTake(takeCommand, takeQuantity, courseName, filter);
+                this.TryParseParametersForOrderAndTake(takeCommand, takeQuantity, courseName, filter);
             }
             else
             {
