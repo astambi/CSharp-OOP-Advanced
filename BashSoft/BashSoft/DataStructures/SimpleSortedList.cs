@@ -38,8 +38,15 @@
 
         public int Size => this.size;
 
+        public int Capacity => this.innerCollection.Length;
+
         public void Add(T element)
         {
+            if (element == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             if (this.innerCollection.Length == this.size)
             {
                 this.Resize();
@@ -52,6 +59,11 @@
 
         public void AddAll(ICollection<T> collection)
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             if (this.innerCollection.Length <= this.size + collection.Count)
             {
                 this.MultiResize(collection);
@@ -65,8 +77,48 @@
             Array.Sort(this.innerCollection, 0, this.size, this.comparison);
         }
 
+        public bool Remove(T element)
+        {
+            if (element == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            bool hasBeenRemoved = false;
+            int indexOfRemovedElement = 0;
+
+            for (int i = 0; i < this.Size; i++)
+            {
+                if (this.innerCollection[i].Equals(element))
+                {
+                    indexOfRemovedElement = i;
+                    this.innerCollection[i] = default(T);
+                    hasBeenRemoved = true;
+                    break;
+                }
+            }
+
+            if (hasBeenRemoved)
+            {
+                for (int i = indexOfRemovedElement; i < this.Size - 1; i++)
+                {
+                    this.innerCollection[i] = this.innerCollection[i + 1];
+                }
+
+                this.innerCollection[this.Size - 1] = default(T);
+                this.size--;
+            }
+
+            return hasBeenRemoved;
+        }
+
         public string JoinWith(string joiner)
         {
+            if (joiner == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var builder = new StringBuilder();
             foreach (var element in this)
             {
@@ -75,7 +127,7 @@
                     .Append(joiner);
             }
 
-            builder.Remove(builder.Length - 1, 1);
+            builder.Remove(builder.Length - joiner.Length, joiner.Length);
 
             return builder.ToString();
         }
