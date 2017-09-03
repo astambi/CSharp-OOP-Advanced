@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 
 public class GameController : IGameController
@@ -10,11 +9,13 @@ public class GameController : IGameController
     private IWriter writer;
     private IArmy army;
     private IWareHouse wareHouse;
-    private MissionController missionController; //Judge does not accept further abstraction (IMissionController)
+    private MissionController missionController;
     private ISoldierFactory soldierFactory;
     private IMissionFactory missionFactory;
 
-    public GameController(IWriter writer, IArmy army, IWareHouse wareHouse, MissionController missionController, ISoldierFactory soldierFactory, IMissionFactory missionFactory)
+    public GameController(IWriter writer, IArmy army, IWareHouse wareHouse,
+                          MissionController missionController,
+                          ISoldierFactory soldierFactory, IMissionFactory missionFactory)
     {
         this.writer = writer;
         this.army = army;
@@ -31,114 +32,125 @@ public class GameController : IGameController
         var commandName = data[0] + CommandSuffix;
         data = data.Skip(1).ToArray();
 
-        try
-        {
-            var method = this.GetType()
-                        .GetMethod(commandName, BindingFlags.Instance | BindingFlags.NonPublic);
+        // Invoke Command Method
+        var commandMethod = this.GetType()
+                            .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+                            .FirstOrDefault(m => m.Name == commandName);
 
-            var methodParams = new object[] { data };
+        var methodParams = new object[] { data };
 
-            method.Invoke(this, methodParams);
-        }
-        catch (Exception e)
-        {
-            throw e.InnerException;
-        }
-    }
-
-    public void RequestFinalSummary()
-    {
-        // Fail missions on hold
-        this.missionController.FailMissionsOnHold();
-
-        // Missions Summary
-        this.writer.AppendMessage(OutputMessages.SummaryMissions);
-
-        this.writer.AppendMessage(string.Format(OutputMessages.SuccessfulMissions,
-                                                this.missionController.SuccessMissionCounter));
-
-        this.writer.AppendMessage(string.Format(OutputMessages.FailedMissions,
-                                                this.missionController.FailedMissionCounter));
-
-        // Soldiers Summary
-        var orderedSoldiers = this.army
-                              .Soldiers
-                              .OrderByDescending(s => s.OverallSkill);
-
-        this.writer.AppendMessage(OutputMessages.SummarySoldiers);
-
-        foreach (var soldier in orderedSoldiers)
-        {
-            this.writer.AppendMessage(string.Format(OutputMessages.SoldierToString,
-                                                    soldier.Name, soldier.OverallSkill));
-        }
+        commandMethod.Invoke(this, methodParams);
     }
 
     private void SoldierCommand(string[] data)
     {
         if (data[0] == RegenerateCommand)
         {
-            var soldierType = data[1];
-            this.army.RegenerateTeam(soldierType);
+            RegenerateSoldierCommand(data);
         }
         else
         {
-            this.AddSoldierToArmy(data);
+            AddSoldierToArmyCommand(data);
         }
     }
 
-    private void AddSoldierToArmy(string[] soldierData)
+    private void RegenerateSoldierCommand(string[] data)
     {
-        ISoldier soldier = CreateSoldier(soldierData);
+        var soldierType = data[1];
+        this.army.RegenerateTeam(soldierType);
+    }
 
-        var isFullyEquipped = this.wareHouse.TryEquipSoldier(soldier);
+    private void AddSoldierToArmyCommand(string[] data)
+    {
+        // Create Soldier
+        ISoldier soldier = CreateSoldier(data);
 
+        // Equip soldier 
+        bool isFullyEquipped = this.wareHouse.TryEquipSoldier(soldier);
+
+        // Add soldier to army if fully equipped
         if (!isFullyEquipped)
         {
-            throw new ArgumentException(string.Format(OutputMessages.NoWeaponForSoldier,
-                                                      soldier.GetType().Name,
-                                                      soldier.Name));
+            this.writer.AppendMessage(string.Format(OutputMessages.NoWeaponForSoldier,
+                                      soldier.GetType().Name, soldier.Name));
         }
-
-        this.army.AddSoldier(soldier);
+        else
+        {
+            this.army.AddSoldier(soldier);
+        }
     }
 
-    private ISoldier CreateSoldier(string[] soldierData)
+    private ISoldier CreateSoldier(string[] data)
     {
-        var type = soldierData[0];
-        var name = soldierData[1];
-        var age = int.Parse(soldierData[2]);
-        var experience = double.Parse(soldierData[3]);
-        var endurance = double.Parse(soldierData[4]);
+        // Parse input
+        var type = data[0];
+        var name = data[1];
+        var age = int.Parse(data[2]);
+        var experience = double.Parse(data[3]);
+        var endurance = double.Parse(data[4]);
 
-        ISoldier soldier = this.soldierFactory.CreateSoldier(type, name, age, experience, endurance);
-
-        return soldier;
+        // Create Soldier
+        return this.soldierFactory.CreateSoldier(type, name, age, experience, endurance);
     }
 
     private void WareHouseCommand(string[] data)
     {
+        // Parse input
         var ammunitionName = data[0];
-        var quantity = int.Parse(data[1]);
+        var ammunitionQuantity = int.Parse(data[1]);
 
-        this.wareHouse.AddAmmunitions(ammunitionName, quantity);
+        // Add Ammunitions to Warehouse
+        this.wareHouse.AddAmmunitions(ammunitionName, ammunitionQuantity);
     }
 
     private void MissionCommand(string[] data)
     {
+        // Create mission
         IMission mission = CreateMission(data);
-        var missionResult = this.missionController.PerformMission(mission);
 
+        // Perform Mission
+        var missionResult = this.missionController.PerformMission(mission);
         this.writer.AppendMessage(missionResult);
     }
 
     private IMission CreateMission(string[] data)
     {
-        var difficultyLevel = data[0];
-        var scoreToComplete = int.Parse(data[1]);
+        // Parse input
+        var missionType = data[0];
+        var missionScoreToComplete = double.Parse(data[1]);
 
-        IMission mission = this.missionFactory.CreateMission(difficultyLevel, scoreToComplete);
+        // Create Mission
+        return this.missionFactory.CreateMission(missionType, missionScoreToComplete);
+    }
 
-        return mission;
+    public void RequestGameResult()
+    {
+        // Fail missions on hold
+        this.missionController.FailMissionsOnHold();
+
+        // Append Summaries
+        AppendMissionsSummary();
+        AppendSoldiersSummary();
+    }
+
+    private void AppendMissionsSummary()
+    {
+        this.writer.AppendMessage(OutputMessages.SummaryMisionResults);
+        this.writer.AppendMessage(string.Format(OutputMessages.SuccessfulMissions,
+                                  this.missionController.SuccessMissionCounter));
+        this.writer.AppendMessage(string.Format(OutputMessages.FailedMissions,
+                                  this.missionController.FailedMissionCounter));
+    }
+
+    private void AppendSoldiersSummary()
+    {
+        var soldiersInDescOrder = this.army.Soldiers
+                                .OrderByDescending(s => s.OverallSkill);
+
+        this.writer.AppendMessage(OutputMessages.SummarySoldiers);
+        foreach (var soldier in soldiersInDescOrder)
+        {
+            this.writer.AppendMessage(soldier.ToString());
+        }
     }
 }

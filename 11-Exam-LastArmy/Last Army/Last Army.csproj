@@ -34,8 +34,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,38 +44,38 @@
   <ItemGroup>
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\GameController.cs" />
+    <Compile Include="Core\MissionController.cs" />
     <Compile Include="Entities\Ammunitions\Ammunition.cs" />
     <Compile Include="Entities\Army.cs" />
+    <Compile Include="Entities\Missions\Easy.cs" />
     <Compile Include="Entities\Missions\Hard.cs" />
     <Compile Include="Entities\Missions\Medium.cs" />
-    <Compile Include="Entities\Missions\Easy.cs" />
     <Compile Include="Entities\Missions\Mission.cs" />
     <Compile Include="Entities\Soldiers\Corporal.cs" />
     <Compile Include="Entities\Soldiers\Ranker.cs" />
     <Compile Include="Entities\WareHouse.cs" />
-    <Compile Include="Factories\MissionFactory.cs" />
-    <Compile Include="Interfaces\Core\IGameController.cs" />
-    <Compile Include="Interfaces\Core\IEngine.cs" />
-    <Compile Include="Interfaces\Core\IMissionController.cs" />
-    <Compile Include="Interfaces\Entities\IWareHouse.cs" />
-    <Compile Include="Core\MissionController.cs" />
     <Compile Include="Factories\AmmunitionFactory.cs" />
+    <Compile Include="Factories\MissionFactory.cs" />
     <Compile Include="Factories\SoldierFactory.cs" />
     <Compile Include="Entities\Ammunitions\AutomaticMachine.cs" />
     <Compile Include="Entities\Ammunitions\Gun.cs" />
     <Compile Include="Entities\Ammunitions\Helmet.cs" />
     <Compile Include="Entities\Ammunitions\Knife.cs" />
+    <Compile Include="Interfaces\Core\IEngine.cs" />
+    <Compile Include="Interfaces\Core\IGameController.cs" />
     <Compile Include="Interfaces\Entities\IAmmunition.cs" />
+    <Compile Include="Interfaces\Entities\IWareHouse.cs" />
     <Compile Include="Interfaces\Factories\IAmmunitionFactory.cs" />
     <Compile Include="Interfaces\Entities\IArmy.cs" />
     <Compile Include="Interfaces\Entities\IMission.cs" />
     <Compile Include="Interfaces\Factories\IMissionFactory.cs" />
-    <Compile Include="Interfaces\IO\IReader.cs" />
-    <Compile Include="Interfaces\IO\IWriter.cs" />
     <Compile Include="Interfaces\Entities\ISoldier.cs" />
     <Compile Include="Interfaces\Factories\ISoldierFactory.cs" />
+    <Compile Include="Interfaces\IO\IReader.cs" />
+    <Compile Include="Interfaces\IO\IWriter.cs" />
     <Compile Include="IO\ConsoleReader.cs" />
     <Compile Include="IO\ConsoleWriter.cs" />
+    <Compile Include="IO\OutputMessages.cs" />
     <Compile Include="LastArmyMain.cs" />
     <Compile Include="Entities\Ammunitions\MachineGun.cs" />
     <Compile Include="Entities\Ammunitions\NightVision.cs" />
@@ -85,10 +83,10 @@
     <Compile Include="Entities\Ammunitions\RPG.cs" />
     <Compile Include="Entities\Soldiers\Soldier.cs" />
     <Compile Include="Entities\Soldiers\SpecialForce.cs" />
-    <Compile Include="IO\OutputMessages.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

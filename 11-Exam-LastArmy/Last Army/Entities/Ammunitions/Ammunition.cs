@@ -21,6 +21,6 @@
 
     public void DecreaseWearLevel(double wearAmount)
     {
-        this.wearLevel -= wearAmount; // NB!
+        this.wearLevel -= wearAmount;
     }
 }

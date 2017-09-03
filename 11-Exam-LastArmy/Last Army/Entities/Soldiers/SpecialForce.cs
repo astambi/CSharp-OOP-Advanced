@@ -3,18 +3,18 @@
 public class SpecialForce : Soldier
 {
     private const double OverallSkillMiltiplier = 3.5;
-    private const int EnduranceIncreaseConst = 30;
+    private const double EnduranceIncrement = 30.0;
 
     private readonly List<string> weaponsAllowed = new List<string>
-    {
-        nameof(Gun),
-        nameof(AutomaticMachine),
-        nameof(MachineGun),
-        nameof(RPG),
-        nameof(Helmet),
-        nameof(Knife),
-        nameof(NightVision)
-    };
+        {
+           nameof(Gun),
+           nameof(AutomaticMachine),
+           nameof(MachineGun),
+           nameof(RPG),
+           nameof(Helmet),
+           nameof(Knife),
+           nameof(NightVision)
+        };
 
     public SpecialForce(string name, int age, double experience, double endurance)
         : base(name, age, experience, endurance)
@@ -28,6 +28,6 @@ public class SpecialForce : Soldier
     public override void Regenerate()
     {
         base.Regenerate();
-        this.Endurance += EnduranceIncreaseConst;
+        this.Endurance += EnduranceIncrement;
     }
 }

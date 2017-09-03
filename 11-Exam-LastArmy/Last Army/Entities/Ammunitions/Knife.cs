@@ -1,6 +1,6 @@
 ﻿public class Knife : Ammunition
 {
-    public const double WeightConst = 0.4;
+    private const double WeightConst = 0.4;
 
     public Knife(string name)
         : base(name, WeightConst)

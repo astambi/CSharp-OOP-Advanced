@@ -1,7 +1,7 @@
-﻿// New
+﻿// Added
 public interface IWriter
 {
     void AppendMessage(string message);
 
-    void WriteMessages();
+    void WriteResult();
 }

@@ -4,9 +4,10 @@ using System.Text;
 
 public class MissionController
 {
+    private Queue<IMission> missionQueue;
+
     private IArmy army;
     private IWareHouse wareHouse;
-    private Queue<IMission> missionQueue;
 
     public MissionController(IArmy army, IWareHouse wareHouse)
     {
@@ -27,7 +28,7 @@ public class MissionController
 
         if (this.missionQueue.Count >= 3)
         {
-            sb.AppendLine(string.Format(OutputMessages.MissionDeclined,
+            sb.AppendLine(string.Format(OutputMessages.MissionDeclined, 
                                         this.missionQueue.Dequeue().Name));
             this.FailedMissionCounter++;
         }
@@ -35,7 +36,6 @@ public class MissionController
         this.missionQueue.Enqueue(mission);
 
         int currentMissionsCount = this.missionQueue.Count;
-
         for (int i = 0; i < currentMissionsCount; i++)
         {
             this.wareHouse.EquipArmy(this.army);
@@ -48,27 +48,18 @@ public class MissionController
 
             if (successful)
             {
-                sb.AppendLine(string.Format(OutputMessages.MissionSuccessful,
+                sb.AppendLine(string.Format(OutputMessages.MissionSuccessful, 
                                             currentMission.Name));
             }
             else
             {
                 this.missionQueue.Enqueue(currentMission);
-                sb.AppendLine(string.Format(OutputMessages.MissionOnHold,
+                sb.AppendLine(string.Format(OutputMessages.MissionOnHold, 
                                             currentMission.Name));
             }
         }
 
         return sb.ToString();
-    }
-
-    public void FailMissionsOnHold()
-    {
-        while (this.missionQueue.Count > 0)
-        {
-            this.FailedMissionCounter++;
-            this.missionQueue.Dequeue();
-        }
     }
 
     private bool ExecuteMission(IMission mission, List<ISoldier> missionTeam)
@@ -94,5 +85,14 @@ public class MissionController
                                     .Where(s => s.ReadyForMission(mission))
                                     .ToList();
         return missionTeam;
+    }
+
+    public void FailMissionsOnHold()
+    {
+        while (this.missionQueue.Count > 0)
+        {
+            this.FailedMissionCounter++;
+            this.missionQueue.Dequeue();
+        }
     }
 }

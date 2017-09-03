@@ -2,8 +2,10 @@
 
 public class Engine : IEngine
 {
-    private IReader reader;
+    public const string InputOverCommand = "Enough! Pull back!";
+
     private IWriter writer;
+    private IReader reader;
     private IGameController gameController;
 
     public Engine(IReader reader, IWriter writer, IGameController gameController)
@@ -18,7 +20,7 @@ public class Engine : IEngine
         while (true)
         {
             var input = this.reader.ReadLine();
-            if (input.Equals(OutputMessages.InputOverCommand))
+            if (input == InputOverCommand)
             {
                 break;
             }
@@ -33,7 +35,7 @@ public class Engine : IEngine
             }
         }
 
-        this.gameController.RequestFinalSummary();
-        this.writer.WriteMessages();
+        this.gameController.RequestGameResult();
+        this.writer.WriteResult();
     }
 }

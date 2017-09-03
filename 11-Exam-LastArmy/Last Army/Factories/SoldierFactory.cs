@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
+// Renamed from SoldiersFactory to match the expected class name in Judge
 public class SoldierFactory : ISoldierFactory
 {
     public ISoldier CreateSoldier(string soldierTypeName, string name, int age, double experience, double endurance)

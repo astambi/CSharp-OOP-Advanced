@@ -17,5 +17,5 @@
 
     public double ScoreToComplete => this.scoreToComplete;
 
-    public abstract double WearLevelDecrement { get; }
+    public abstract double WearLevelDecrement { get; } 
 }

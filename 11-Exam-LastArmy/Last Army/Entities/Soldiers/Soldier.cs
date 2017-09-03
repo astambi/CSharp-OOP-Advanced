@@ -3,7 +3,7 @@ using System.Linq;
 
 public abstract class Soldier : ISoldier
 {
-    private const double MaxEndurance = 100.0;
+    private const double MaxEndurance = 100;
 
     private string name;
     private int age;
@@ -17,7 +17,6 @@ public abstract class Soldier : ISoldier
         this.age = age;
         this.experience = experience;
         this.endurance = endurance;
-
         this.weapons = InitializeWeapons();
     }
 
@@ -46,19 +45,18 @@ public abstract class Soldier : ISoldier
 
     protected abstract IReadOnlyList<string> WeaponsAllowed { get; }
 
-    public IDictionary<string, IAmmunition> Weapons
-    {
-        get { return this.weapons; }
+    public IDictionary<string, IAmmunition> Weapons => this.weapons;
 
-        private set
+    private IDictionary<string, IAmmunition> InitializeWeapons()
+    {
+        var initialWeapons = new Dictionary<string, IAmmunition>();
+
+        foreach (var weaponName in this.WeaponsAllowed)
         {
-            this.weapons = value;
+            initialWeapons[weaponName] = null;
         }
-    }
 
-    public virtual void Regenerate()
-    {
-        this.Endurance += this.Age;
+        return initialWeapons;
     }
 
     public bool ReadyForMission(IMission mission)
@@ -68,57 +66,50 @@ public abstract class Soldier : ISoldier
             return false;
         }
 
-        bool hasAllEquipment = this.Weapons
-                                   .Values
-                                   .Count(weapon => weapon == null) == 0;
+        bool hasAllEquipment = this.weapons.Values
+                               .Count(weapon => weapon == null) == 0;
 
         if (!hasAllEquipment)
         {
             return false;
         }
 
-        return this.Weapons
-                   .Values
-                   .Count(weapon => weapon.WearLevel <= 0) == 0;
+        return this.Weapons.Values
+               .Count(weapon => weapon.WearLevel <= 0) == 0;
+    }
+
+    public virtual void Regenerate()
+    {
+        this.Endurance += this.Age;
     }
 
     public void CompleteMission(IMission mission)
     {
+        // Update Soldier
         this.endurance -= mission.EnduranceRequired;
         this.experience += mission.EnduranceRequired;
-        this.AmmunitionRevision(mission.WearLevelDecrement); // NB!
-    }
 
-    public override string ToString()
-    {
-        return string.Format(OutputMessages.SoldierToString,
-                             this.Name,
-                             this.OverallSkill);
-    }
-
-    private IDictionary<string, IAmmunition> InitializeWeapons()
-    {
-        var weapons = new Dictionary<string, IAmmunition>();
-
-        foreach (var weaponName in this.WeaponsAllowed)
-        {
-            weapons[weaponName] = null;
-        }
-
-        return weapons;
+        // Update Soldier weapons
+        AmmunitionRevision(mission.WearLevelDecrement);
     }
 
     private void AmmunitionRevision(double missionWearLevelDecrement)
     {
-        IEnumerable<string> keys = this.Weapons.Keys.ToList();
+        IEnumerable<string> keys = this.weapons.Keys.ToList();
+
         foreach (string weaponName in keys)
         {
-            this.Weapons[weaponName].DecreaseWearLevel(missionWearLevelDecrement);
+            this.weapons[weaponName].DecreaseWearLevel(missionWearLevelDecrement);
 
-            if (this.Weapons[weaponName].WearLevel <= 0)
+            if (this.weapons[weaponName].WearLevel <= 0)
             {
-                this.Weapons[weaponName] = null;
+                this.weapons[weaponName] = null;
             }
         }
+    }
+
+    public override string ToString()
+    {
+        return string.Format(OutputMessages.SoldierToString, this.Name, this.OverallSkill);
     }
 }

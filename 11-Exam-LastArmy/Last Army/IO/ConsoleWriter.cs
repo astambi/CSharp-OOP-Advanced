@@ -9,17 +9,17 @@ public class ConsoleWriter : IWriter
         : this(new StringBuilder())
     {
     }
+
     public ConsoleWriter(StringBuilder collectedMessages)
     {
         this.collectedMessages = collectedMessages;
     }
-
     public void AppendMessage(string message)
     {
         this.collectedMessages.AppendLine(message.Trim());
     }
 
-    public void WriteMessages()
+    public void WriteResult()
     {
         Console.WriteLine(this.collectedMessages.ToString().Trim());
     }

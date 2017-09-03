@@ -1,7 +1,7 @@
-﻿// New
+﻿// Added
 public interface IGameController
 {
     void ProcessInput(string input);
 
-    void RequestFinalSummary();
+    void RequestGameResult();
 }
