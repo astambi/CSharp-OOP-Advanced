@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 public class Engine : IEngine
 {
+    private const string TerminatingCommand = "Quit";
+
     private IInputReader reader;
     private IOutputWriter writer;
     private IManager heroManager;
@@ -30,13 +33,11 @@ public class Engine : IEngine
         }
     }
 
-    // Refactored
     private IList<string> ParseInput(string input)
     {
         return input
-            //.Split(' ')
-            .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-            .ToList();
+              .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+              .ToList();
     }
 
     private string ProcessInput(IList<string> arguments)
@@ -44,19 +45,25 @@ public class Engine : IEngine
         string command = arguments[0];
         arguments.RemoveAt(0);
 
-        Type commandType = Type.GetType(command + "Command");
+        // Invoke Command
+        Type commandType = Assembly
+                          .GetExecutingAssembly()
+                          .GetTypes()
+                          .FirstOrDefault(t => t.Name == command + "Command");
+        var commandParams = new object[] { arguments, this.heroManager };
+        ICommand cmd = (ICommand)Activator.CreateInstance(commandType, commandParams);
 
-        var constructor = commandType
-                         .GetConstructor(new Type[] { typeof(IList<string>), typeof(IManager) });
-
-        ICommand cmd = (ICommand)constructor
-                                .Invoke(new object[] { arguments, this.heroManager });
+        //Type commandType = Type.GetType(command + "Command");
+        //var constructor = commandType.GetConstructor(
+        //                new Type[] { typeof(IList<string>), typeof(IManager) });
+        //var commandParams = new object[] { arguments, this.heroManager };
+        //ICommand cmd = (ICommand)constructor.Invoke(commandParams);
 
         return cmd.Execute();
     }
 
     private bool ShouldEnd(string inputLine)
     {
-        return inputLine.Equals("Quit");
+        return inputLine.Equals(TerminatingCommand);
     }
 }

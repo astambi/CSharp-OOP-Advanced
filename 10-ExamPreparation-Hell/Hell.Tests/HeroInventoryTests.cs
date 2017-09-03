@@ -129,22 +129,22 @@ public class HeroInventoryTests
                         "Returned collection did not match input collection!");
     }
 
-    [Test]
-    public void AddCommonItemWithExistingItemShouldThrowException()
-    {
-        // Arrange
-        var item = new CommonItem("Common Item", 1, 2, 3, 4, 5);
+    //[Test]
+    //public void AddCommonItemWithExistingItemShouldThrowException()
+    //{
+    //    // Arrange
+    //    var item = new CommonItem("Common Item", 1, 2, 3, 4, 5);
 
-        // Act
-        this.heroInventory.AddCommonItem(item);
+    //    // Act
+    //    this.heroInventory.AddCommonItem(item);
 
-        IDictionary<string, IItem> collection = GetCommonItems();
+    //    IDictionary<string, IItem> collection = GetCommonItems();
 
-        // Assert
-        Assert.Throws<ArgumentException>(
-            () => this.heroInventory.AddCommonItem(item),
-            "An item with the same key has already been added.");
-    }
+    //    // Assert
+    //    Assert.Throws<ArgumentException>(
+    //        () => this.heroInventory.AddCommonItem(item),
+    //        "An item with the same key has already been added.");
+    //}
 
     // AddRecipeItem
     [Test]
@@ -227,23 +227,23 @@ public class HeroInventoryTests
                         "Returned collection did not match input collection!");
     }
 
-    [Test]
-    public void AddRecipeItemWithExistingItemShouldThrowException()
-    {
-        // Arrange
-        var requiredItems = new List<string>() { "i1", "i2" };
-        var item = new RecipeItem("Recipe Item", 1, 2, 3, 4, 5, requiredItems);
+    //[Test]
+    //public void AddRecipeItemWithExistingItemShouldThrowException()
+    //{
+    //    // Arrange
+    //    var requiredItems = new List<string>() { "i1", "i2" };
+    //    var item = new RecipeItem("Recipe Item", 1, 2, 3, 4, 5, requiredItems);
 
-        // Act
-        this.heroInventory.AddRecipeItem(item);
+    //    // Act
+    //    this.heroInventory.AddRecipeItem(item);
 
-        IDictionary<string, IRecipe> collection = GetRecipeItems();
+    //    IDictionary<string, IRecipe> collection = GetRecipeItems();
 
-        // Assert
-        Assert.Throws<ArgumentException>(
-            () => this.heroInventory.AddRecipeItem(item),
-            "An item with the same key has already been added.");
-    }
+    //    // Assert
+    //    Assert.Throws<ArgumentException>(
+    //        () => this.heroInventory.AddRecipeItem(item),
+    //        "An item with the same key has already been added.");
+    //}
 
     // Total Bonuses
     [Test]
@@ -455,8 +455,7 @@ public class HeroInventoryTests
     {
         var type = typeof(HeroInventory);
 
-        var field = type.GetField("commonItems",
-                                   BindingFlags.Instance | BindingFlags.NonPublic);
+        var field = type.GetField("commonItems", BindingFlags.Instance | BindingFlags.NonPublic);
         //var field = type
         //                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
         //                .FirstOrDefault(f => 
@@ -471,8 +470,7 @@ public class HeroInventoryTests
     private IDictionary<string, IRecipe> GetRecipeItems()
     {
         var type = typeof(HeroInventory);
-        var field = type.GetField("recipeItems",
-                                  BindingFlags.Instance | BindingFlags.NonPublic);
+        var field = type.GetField("recipeItems", BindingFlags.Instance | BindingFlags.NonPublic);
 
         var collection = (IDictionary<string, IRecipe>)field
                         .GetValue(this.heroInventory);
@@ -483,8 +481,7 @@ public class HeroInventoryTests
     private MethodInfo GetMethodByName(string methodName)
     {
         var type = typeof(HeroInventory);
-        var method = type.GetMethod(methodName,
-                                    BindingFlags.Instance | BindingFlags.NonPublic);
+        var method = type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
         return method;
     }
 }

@@ -13,5 +13,4 @@
     void AddCommonItem(IItem item);
 
     void AddRecipeItem(IRecipe recipe);
-
 }

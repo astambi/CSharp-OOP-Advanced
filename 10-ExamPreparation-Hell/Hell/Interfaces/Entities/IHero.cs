@@ -14,20 +14,13 @@ public interface IHero
 
     long Damage { get; }
 
-    // from AbstractHero
     long PrimaryStats { get; }
-
-    // from AbstractHero
+    
     long SecondaryStats { get; }
 
-    // from AbstractHero
     ICollection<IItem> Items { get; }
 
-    // from QuitCommand
-    void AddItem(IItem item);
+    void AddCommonItem(IItem commomItem);
 
-    // from AbstractHero
     void AddRecipe(IRecipe recipe);
-
-    string PrintQuitStats();
 }

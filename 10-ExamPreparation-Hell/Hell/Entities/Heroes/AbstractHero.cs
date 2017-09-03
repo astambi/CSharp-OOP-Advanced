@@ -1,95 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
-public class AbstractHero : IHero, IComparable<AbstractHero>
+public abstract class AbstractHero : IHero
 {
-    private IInventory inventory;
+    private string name;
     private long strength;
     private long agility;
     private long intelligence;
     private long hitPoints;
     private long damage;
+    private IInventory inventory;
 
-    protected AbstractHero(string name, int strength, int agility, int intelligence, int hitPoints, int damage)
+    // refactored from protected!
+    public AbstractHero(string name, int strength, int agility, int intelligence, int hitPoints, int damage)
     {
-        this.Name = name;
+        this.name = name;
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
         this.hitPoints = hitPoints;
         this.damage = damage;
-        this.inventory = new HeroInventory(); // TODO Refactor dependency
+        this.inventory = new HeroInventory();
     }
 
-    public string Name { get; private set; }
+    public string Name => this.name;
 
-    public long Strength
-    {
-        get { return this.strength + this.inventory.TotalStrengthBonus; }
-        set { this.strength = value; }
-    }
+    public long Strength => this.strength + this.inventory.TotalStrengthBonus;
 
-    public long Agility
-    {
-        get { return this.agility + this.inventory.TotalAgilityBonus; }
-        set { this.agility = value; }
-    }
+    public long Agility => this.agility + this.inventory.TotalAgilityBonus;
 
-    public long Intelligence
-    {
-        get { return this.intelligence + this.inventory.TotalIntelligenceBonus; }
-        set { this.intelligence = value; }
-    }
+    public long Intelligence => this.intelligence + this.inventory.TotalIntelligenceBonus;
 
-    public long HitPoints
-    {
-        get { return this.hitPoints + this.inventory.TotalHitPointsBonus; }
-        set { this.hitPoints = value; }
-    }
+    public long HitPoints => this.hitPoints + this.inventory.TotalHitPointsBonus;
 
-    public long Damage
-    {
-        get { return this.damage + this.inventory.TotalDamageBonus; }
-        set { this.damage = value; }
-    }
+    public long Damage => this.damage + this.inventory.TotalDamageBonus;
 
-    public long PrimaryStats
-    {
-        get { return this.Strength + this.Agility + this.Intelligence; }
-    }
+    public long PrimaryStats => this.Strength + this.Agility + this.Intelligence;
 
-    // Refactored
-    public long SecondaryStats
-    {
-        get { return this.HitPoints + this.Damage; }
-    }
+    public long SecondaryStats => this.HitPoints + this.Damage;
 
     //REFLECTION
     public ICollection<IItem> Items
     {
         get
         {
-            Type inventoryType = typeof(HeroInventory);
+            var inventoryType = typeof(HeroInventory);
+
+            //var fields = inventoryType
+            //    .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+            //    .FirstOrDefault(f => f.Name == "commonItems");
 
             var inventoryFields = inventoryType
-                                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-                                .FirstOrDefault(f =>
-                                    f.GetCustomAttributes(typeof(ItemAttribute)) != null);
+                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+                .FirstOrDefault(f => f.GetCustomAttributes(typeof(ItemAttribute)) != null);
 
             var items = (Dictionary<string, IItem>)inventoryFields
-                                                   .GetValue(this.inventory);
+                        .GetValue(this.inventory);
 
-            return items.Values.ToList(); // Dict to List
+            return items.Values.ToList();
         }
     }
 
-    // Added
-    public void AddItem(IItem item)
+    public void AddCommonItem(IItem commomItem)
     {
-        this.inventory.AddCommonItem(item);
+        this.inventory.AddCommonItem(commomItem);
     }
 
     public void AddRecipe(IRecipe recipe)
@@ -97,72 +73,30 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
         this.inventory.AddRecipeItem(recipe);
     }
 
-    // Not used
-    public int CompareTo(AbstractHero other)
-    {
-        if (ReferenceEquals(this, other))
-        {
-            return 0;
-        }
-        if (ReferenceEquals(null, other))
-        {
-            return 1;
-        }
-        var primary = this.PrimaryStats.CompareTo(other.PrimaryStats);
-        if (primary != 0)
-        {
-            return primary;
-        }
-        return this.SecondaryStats.CompareTo(other.SecondaryStats);
-    }
-
-    public string PrintQuitStats()
-    {
-        var builder = new StringBuilder();
-
-        // Hero stats
-        builder
-            .AppendLine($"{this.GetType().Name}: {this.Name}")
-            .AppendLine($"###HitPoints: {this.HitPoints}")
-            .AppendLine($"###Damage: {this.Damage}")
-            .AppendLine($"###Strength: {this.Strength}")
-            .AppendLine($"###Agility: {this.Agility}")
-            .AppendLine($"###Intelligence: {this.Intelligence}");
-
-        // Item names 
-        if (this.Items.Any())
-        {
-            var itemNames = this.Items.Select(i => i.Name);
-            builder
-                .Append("###Items: ")
-                .AppendLine(string.Join(", ", itemNames));
-        }
-        else
-        {
-            builder.AppendLine("###Items: None");
-        }
-
-        return builder.ToString().Trim();
-    }
-
     public override string ToString()
     {
         var builder = new StringBuilder();
 
-        // Hero stats
+        // Hero Summary
         builder
             .AppendLine($"Hero: {this.Name}, Class: {this.GetType().Name}")
             .AppendLine($"HitPoints: {this.HitPoints}, Damage: {this.Damage}")
             .AppendLine($"Strength: {this.Strength}")
             .AppendLine($"Agility: {this.Agility}")
-            .AppendLine($"Intelligence: {this.Intelligence}");
+            .AppendLine($"Intelligence: {this.Intelligence}")
+            .Append("Items:");
 
-        // Items stats
-        if (this.Items.Any())
+        // Items Summary
+        var items = this.Items;
+        if (items.Count == 0)
         {
-            builder.AppendLine("Items:"); // NB!
+            builder.AppendLine(" None");
+        }
+        else
+        {
+            builder.AppendLine();
 
-            foreach (var item in this.Items)
+            foreach (var item in items)
             {
                 builder
                     .AppendLine($"###Item: {item.Name}")
@@ -172,10 +106,6 @@ public class AbstractHero : IHero, IComparable<AbstractHero>
                     .AppendLine($"###+{item.HitPointsBonus} HitPoints")
                     .AppendLine($"###+{item.DamageBonus} Damage");
             }
-        }
-        else
-        {
-            builder.AppendLine($"Items: None");
         }
 
         return builder.ToString().Trim();

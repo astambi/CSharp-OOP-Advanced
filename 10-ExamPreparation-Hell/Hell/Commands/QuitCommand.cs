@@ -2,19 +2,14 @@
 
 public class QuitCommand : AbstractCommand
 {
-    // Refactored
-    //protected QuitCommand()
-    //{
-    //}
-
-    public QuitCommand(IList<string> args, IManager manager) 
+    public QuitCommand(IList<string> args, IManager manager)
         : base(args, manager)
     {
     }
 
-    // Refactored
-    public /*virtual*/ override string Execute()
+    public override string Execute()
     {
-        return this.Manager.Quit(this.Arguments);
+        var result = this.Manager.Quit(this.ArgsList);
+        return result;
     }
 }

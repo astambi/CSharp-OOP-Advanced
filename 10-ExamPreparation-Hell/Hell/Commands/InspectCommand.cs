@@ -2,13 +2,14 @@
 
 public class InspectCommand : AbstractCommand
 {
-    public InspectCommand(IList<string> arguments, IManager manager) 
-        : base(arguments, manager)
+    public InspectCommand(IList<string> args, IManager manager)
+        : base(args, manager)
     {
     }
 
     public override string Execute()
     {
-        return this.Manager.Inspect(this.Arguments);
+        var result = this.Manager.Inspect(this.ArgsList);
+        return result;
     }
 }

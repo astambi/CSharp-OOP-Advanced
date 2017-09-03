@@ -2,13 +2,14 @@
 
 public class HeroCommand : AbstractCommand
 {
-    public HeroCommand(IList<string> arguments, IManager manager)
-        : base(arguments, manager)
+    public HeroCommand(IList<string> args, IManager manager)
+        : base(args, manager)
     {
     }
 
     public override string Execute()
     {
-        return this.Manager.AddHero(this.Arguments);
+        var result = this.Manager.AddHero(this.ArgsList);
+        return result;
     }
 }

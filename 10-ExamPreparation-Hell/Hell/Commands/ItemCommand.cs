@@ -2,13 +2,14 @@
 
 public class ItemCommand : AbstractCommand
 {
-    public ItemCommand(IList<string> arguments, IManager manager) 
-        : base(arguments, manager)
+    public ItemCommand(IList<string> args, IManager manager)
+        : base(args, manager)
     {
     }
 
     public override string Execute()
     {
-        return this.Manager.AddItem(this.Arguments);
+        var result = this.Manager.AddCommonItem(this.ArgsList);
+        return result;
     }
 }

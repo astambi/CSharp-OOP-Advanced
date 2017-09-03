@@ -41,13 +41,13 @@ public class HeroInventory : IInventory
 
     public void AddCommonItem(IItem item)
     {
-        this.commonItems.Add(item.Name, item);
+        this.commonItems[item.Name] = item;
         this.CheckRecipes();
     }
 
     public void AddRecipeItem(IRecipe recipe)
     {
-        this.recipeItems.Add(recipe.Name, recipe);
+        this.recipeItems[recipe.Name] = recipe;
         this.CheckRecipes();
     }
 
@@ -80,12 +80,13 @@ public class HeroInventory : IInventory
             this.commonItems.Remove(item);
         }
 
-        IItem newItem = new CommonItem(recipe.Name,
-            recipe.StrengthBonus,
-            recipe.AgilityBonus,
-            recipe.IntelligenceBonus,
-            recipe.HitPointsBonus,
-            recipe.DamageBonus);
+        IItem newItem = new CommonItem(
+                            recipe.Name,
+                            recipe.StrengthBonus,
+                            recipe.AgilityBonus,
+                            recipe.IntelligenceBonus,
+                            recipe.HitPointsBonus,
+                            recipe.DamageBonus);
 
         this.commonItems.Add(newItem.Name, newItem);
     }

@@ -2,13 +2,14 @@
 
 public class RecipeCommand : AbstractCommand
 {
-    public RecipeCommand(IList<string> arguments, IManager manager) 
-        : base(arguments, manager)
+    public RecipeCommand(IList<string> args, IManager manager)
+        : base(args, manager)
     {
     }
 
     public override string Execute()
     {
-        return this.Manager.AddRecipe(this.Arguments);
+        var result = this.Manager.AddRecipeItem(this.ArgsList);
+        return result;
     }
 }
